@@ -1,3 +1,7 @@
+## 0.0.3
+
+- Update table version to 0.0.5
+
 ## 0.0.2
 
 - Update table version to 0.0.4
