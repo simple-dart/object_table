@@ -13,24 +13,23 @@ class ObjectTableSelectEvent<T> {
 }
 
 class ObjectTable<T> extends Table {
+  List<T> _objects = <T>[];
+  bool _selectable = false;
+
+  late ObjectTableRowAdapter<T> objectRowAdapter;
+  final StreamController<ObjectTableSelectEvent<T>> _onSelect = StreamController<ObjectTableSelectEvent<T>>.broadcast();
+
   ObjectTable(this.objectRowAdapter, {selectable = false}) {
     _selectable = selectable;
     if (_selectable) {
-      final cell = LabelTableCell('')..width = '40px';
+      final cell = LabelTableCell()..width = '40px';
       headersRow.cells.add(cell);
       headersRow.add(cell);
     }
   }
 
-  List<T> objectList = <T>[];
-  bool _selectable = false;
-
-  late ObjectTableRowAdapter<T> objectRowAdapter;
-
-  final StreamController<ObjectTableSelectEvent<T>> _onSelect = StreamController<ObjectTableSelectEvent<T>>.broadcast();
-
   TableRow createObjectRow(T object) {
-    objectList.add(object);
+    _objects.add(object);
     final rowData = objectRowAdapter(object)..add(object);
     final newRow = super.createRow(rowData);
     if (_selectable) {
@@ -45,6 +44,29 @@ class ObjectTable<T> extends Table {
     return newRow;
   }
 
+  set objects(List<T> newObjects) {
+    if (newObjects.isEmpty) {
+      clear();
+    }
+    if (newObjects.length < _objects.length) {
+      rows.removeRange(newObjects.length, _objects.length);
+      for (var i = 0; i < newObjects.length; i++) {
+        rows[i].data = objectRowAdapter(newObjects[i]);
+      }
+    } else if (newObjects.length > _objects.length) {
+      for (var i = 0; i < newObjects.length; i++) {
+        rows[i].data = objectRowAdapter(newObjects[i]);
+      }
+      for (var i = _objects.length; i < newObjects.length; i++) {
+        final newRow = createObjectRow(newObjects[i]);
+        rows.add(newRow);
+      }
+    }
+    _objects = newObjects;
+  }
+
+  List<T> get objects => _objects;
+
   void _onCheckBoxSelect(ObjectTableSelectEvent<T> object) {
     _onSelect.sink.add(object);
   }
@@ -57,9 +79,9 @@ class ObjectTable<T> extends Table {
 
   List<T> getSelected() {
     final ret = <T>[];
-    for (var i = 0; i < objectList.length; i++) {
+    for (var i = 0; i < objects.length; i++) {
       final row = rows[i];
-      final obj = objectList[i];
+      final obj = objects[i];
       final checkBoxCell = row.children[0];
       if (checkBoxCell is ComponentTableCell) {
         final checkBox = checkBoxCell.children[0];
@@ -76,7 +98,7 @@ class ObjectTable<T> extends Table {
   @override
   void clear() {
     super.clear();
-    objectList.clear();
+    _objects.clear();
   }
 
   @override
