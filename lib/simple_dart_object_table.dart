@@ -54,7 +54,7 @@ class ObjectTable<T> extends Table {
         rows[i].data = objectRowAdapter(newObjects[i]);
       }
     } else if (newObjects.length > _objects.length) {
-      for (var i = 0; i < newObjects.length; i++) {
+      for (var i = 0; i < _objects.length; i++) {
         rows[i].data = objectRowAdapter(newObjects[i]);
       }
       for (var i = _objects.length; i < newObjects.length; i++) {

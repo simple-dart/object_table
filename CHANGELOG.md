@@ -1,3 +1,7 @@
+## 0.0.4
+
+- Fix bug in set objects
+
 ## 0.0.3
 
 - Update table version to 0.0.5
