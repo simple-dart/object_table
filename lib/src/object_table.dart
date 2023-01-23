@@ -94,6 +94,7 @@ class ObjectTable<T> extends Table {
   set objects(List<T> newObjects) {
     if (newObjects.isEmpty) {
       clear();
+      return;
     }
     if (newObjects.length <= rows.length) {
       if (newObjects.length < rows.length) {
@@ -110,6 +111,7 @@ class ObjectTable<T> extends Table {
         createObjectRow(newObjects[i]);
       }
     }
+    sortData();
   }
 
   List<T> get objects => rows.map((e) => (e as ObjectTableRow<T>).object).toList();
@@ -136,21 +138,24 @@ class ObjectTable<T> extends Table {
   }
 
   @override
-  void sortData({int columnIndex = 0, bool desc = false}) {
+  void sortData() {
+    if (sortedColumnIndex == null) {
+      return;
+    }
     final sortRows = <ObjectTableRow<T>>[];
     for (final row in rows) {
       sortRows.add(row as ObjectTableRow<T>);
     }
-    if (desc) {
+    if (sortedColumnAscending) {
       sortRows.sort((row1, row2) {
-        final data1 = row1.cells[columnIndex].value;
-        final data2 = row2.cells[columnIndex].value;
+        final data1 = row1.cells[sortedColumnIndex!].value;
+        final data2 = row2.cells[sortedColumnIndex!].value;
         return compareDynamics(data2, data1);
       });
     } else {
       sortRows.sort((row1, row2) {
-        final data1 = row1.cells[columnIndex].value;
-        final data2 = row2.cells[columnIndex].value;
+        final data1 = row1.cells[sortedColumnIndex!].value;
+        final data2 = row2.cells[sortedColumnIndex!].value;
         return compareDynamics(data1, data2);
       });
     }
