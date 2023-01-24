@@ -55,7 +55,7 @@ class ObjectTableRow<T> extends AbstractTableRow {
           ..value = value
           ..width = '${columnDescr.width}px';
         cells[colNum].remove();
-        insert(colNum, newCell);
+        insert(colNum + 1, newCell);
         cells[colNum] = newCell;
       }
     }
