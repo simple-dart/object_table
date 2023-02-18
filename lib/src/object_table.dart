@@ -5,8 +5,6 @@ import 'package:simple_dart_ui_core/simple_dart_ui_core.dart';
 
 import '../simple_dart_object_table.dart';
 
-typedef ObjectTableRowAdapter<T> = List<dynamic> Function(T object);
-
 class ObjectTableSelectEvent<T> {
   ObjectTableSelectEvent(this.object, {this.selected = false});
 
@@ -15,7 +13,7 @@ class ObjectTableSelectEvent<T> {
 }
 
 class ObjectTable<T> extends Table {
-  late ObjectTableRowAdapter<T> objectRowAdapter;
+  late ObjectListAdapter<T> objectRowAdapter;
   final StreamController<ObjectTableSelectEvent<T>> _onSelectController =
       StreamController<ObjectTableSelectEvent<T>>.broadcast();
 

@@ -1,6 +1,6 @@
 name: simple_dart_object_table
 description: Object Table Component
-version: 0.1.2
+version: 0.1.3
 repository: https://github.com/simple-dart/object_table
 platforms:
   web:
@@ -11,5 +11,5 @@ environment:
 
 dependencies:
   simple_dart_checkbox: ^0.0.2
-  simple_dart_table: ^0.1.1
-  simple_dart_ui_core: ^0.0.2
+  simple_dart_table: ^0.1.2
+  simple_dart_ui_core: ^0.0.3

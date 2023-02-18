@@ -1,11 +1,10 @@
 import 'package:simple_dart_checkbox/simple_dart_checkbox.dart';
 import 'package:simple_dart_table/simple_dart_table.dart';
-
-import '../simple_dart_object_table.dart';
+import 'package:simple_dart_ui_core/simple_dart_ui_core.dart';
 
 class ObjectTableRow<T> extends AbstractTableRow {
   late CellRenderer cellFactory;
-  ObjectTableRowAdapter<T> rowAdapter;
+  ObjectListAdapter<T> rowAdapter;
   Checkbox checkbox = Checkbox()..visible = false;
   final List<AbstractTableCell> _cells = <AbstractTableCell>[];
   late T _object;
