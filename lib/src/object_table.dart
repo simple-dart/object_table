@@ -157,10 +157,13 @@ class ObjectTable<T> extends Table {
         return compareDynamics(data1, data2);
       });
     }
-    clear();
-    sortRows.forEach((row) {
-      createObjectRow(row.object);
-    });
+    final newSelected = sortRows.map((e) => e.checkbox.value).toList();
+    final newObjects = sortRows.map((e) => e.object).toList();
+    for (var i = 0; i < rows.length; i++) {
+      final row = rows[i] as ObjectTableRow<T>;
+      row.checkbox.value = newSelected[i];
+      row.object = newObjects[i];
+    }
   }
 
   void headerCheckboxValueChange(ValueChangeEvent<bool> event) {

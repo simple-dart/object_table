@@ -1,3 +1,7 @@
+## 0.1.4
+
+- Fix reset selecting on sort
+
 ## 0.1.3
 
 - Extract adapter to ui_core
