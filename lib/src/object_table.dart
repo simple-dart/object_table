@@ -80,7 +80,7 @@ class ObjectTable<T> extends Table {
       } else if (allUnselected) {
         (headersRow as ObjectTableHeaderRow).checkbox.value = false;
       } else {
-        (headersRow as ObjectTableHeaderRow).checkbox.isIndeterminate = true;
+        (headersRow as ObjectTableHeaderRow).checkbox.indeterminate = true;
       }
     });
     formatRow(newRow);

@@ -1,3 +1,7 @@
+## 0.1.5
+
+- Upgrade checkbox version to 0.0.6
+
 ## 0.1.4
 
 - Fix reset selecting on sort
